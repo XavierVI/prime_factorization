@@ -11,16 +11,16 @@ class TimerNode(Node):
         self.times = []
         self.factored_nums = 0
         self.starting_time = 0.0
-        self.publisher_ = self.create_publisher(
-            topic='pub_int',
+        self.publisher = self.create_publisher(
             msg_type=Int64,
-            queue_size=1
+            topic='number_to_factorize',
+            qos_profile=1
         )
-        self.subscription_ = self.create_subscription(
-            topic='sub_array',
+        self.subscription = self.create_subscription(
             msg_type=Int64MultiArray,
+            topic='factorization_result',
             callback=self.sub_callback,
-            queue_size=1
+            qos_profile=1
         )
         self.pub_and_start_timer()
         
@@ -32,7 +32,7 @@ class TimerNode(Node):
         self.times.append(elapsed_time)
         
         # print the array and elapsed time
-        self.get_logger().info('Recieved array: ',msg.data)
+        self.get_logger().info('Recieved prime factors: ',msg.data)
         self.get_logger().info('Elapsed time: ',elapsed_time)
         
         # if 100 numbers have been factored, log the mean of
@@ -47,7 +47,8 @@ class TimerNode(Node):
         
     def pub_and_start_timer(self):
         rand_num = random.randint(1, 10)
-        self.publisher_.publish(rand_num)
+        self.get_logger().info('Publishing: ',rand_num)
+        self.publisher.publish(rand_num)
         self.starting_time = time.time() * 1_000
         
         

@@ -4,8 +4,11 @@
   <name>prime_calculation_timer</name>
   <version>0.0.0</version>
   <description>Performs prime factorization on arbitrary integers.</description>
-  <maintainer email="">Xavier</maintainer>
+  <maintainer email="ros_package@example.com">Xavier</maintainer>
   <license>Apache-2.0</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

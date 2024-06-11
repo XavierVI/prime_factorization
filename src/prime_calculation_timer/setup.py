@@ -20,6 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'timer_node = prime_calculation_timer.timer_node:main',
+            'prime_factorizer_node = prime_calculation_timer.prime_factorizer_node:main'
         ],
     },
 )

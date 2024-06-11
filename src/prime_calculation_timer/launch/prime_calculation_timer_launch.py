@@ -20,8 +20,6 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             parameters=[
-                # {'max_int_size': 10},
-                # {'stopping_point': 1}
             ]
         )
     ])

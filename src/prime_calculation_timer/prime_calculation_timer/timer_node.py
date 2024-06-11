@@ -50,7 +50,7 @@ class TimerNode(Node):
             self.get_logger().info(f'\n\n\n========== Avg. time: {mean} ms ==========\n\n')
             self.times = [] # clear array
             
-        elif len(self.times) < self.last_iteration:
+        else:
             self.pub_and_start_timer()
         
         

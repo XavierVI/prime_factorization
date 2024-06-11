@@ -23,20 +23,33 @@ class PrimeFactorizer(Node):
     def calculate_prime_factors(self, msg):
         num = msg.data
         # perform prime factorization
-        if num == 2 or num == 3:
-            self.factors.append(num)
-        elif num % 2 == 0:
-            # trial division
-            num
-        else:
-            self.fermat_factorization(num)
+        factors = self.trial_division(num)
+        self.pub_prime_factors(factors)
         
-    def pub_prime_factors(self):
-        self.publisher.publish(self.factors)
+    def pub_prime_factors(self, factors):
+        self.publisher.publish(factors)
         
+    def trial_division(self, num):
+        curr_factor = 2
+        factors = []
         
-    def fermat_factorization(n):
-        a = math.ceil(math.sqrt(a))
-        b2 = a*a - n
-        while b2 % b2 != 0:
-            
+        while curr_factor**2 <= num:
+            if curr_factor % num == 0:
+                factors.append(curr_factor)
+                num = num / curr_factor
+            else:
+                curr_factor += 1
+        if num != 1:
+            factors.append(num)
+        return factors
+
+
+def main(args=None):
+    rclpy.init(args=args)
+    prime_factorizer = PrimeFactorizer()
+    rclpy.spin(prime_factorizer)
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()  

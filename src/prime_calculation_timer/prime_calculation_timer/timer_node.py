@@ -6,8 +6,9 @@ import time
 import random
 
 class TimerNode(Node):
+    
     def __init__(self):
-        super.__init__('timer_node')
+        super().__init__('timer_node')
         self.times = []
         self.factored_nums = 0
         self.starting_time = 0.0
@@ -32,14 +33,14 @@ class TimerNode(Node):
         self.times.append(elapsed_time)
         
         # print the array and elapsed time
-        self.get_logger().info('Recieved prime factors: ',msg.data)
-        self.get_logger().info('Elapsed time: ',elapsed_time)
+        self.get_logger().info(f'Recieved prime factors: {msg.data}')
+        self.get_logger().info(f'Elapsed time: {elapsed_time}')
         
         # if 100 numbers have been factored, log the mean of
         # the time taken
         if(len(self.times) == 100):
             mean = sum(self.times) / len(self.times)
-            self.get_logger().info('Avg. time: ', mean)
+            self.get_logger().info(f'Avg. time: {mean}')
             self.times = [] # clear array
         self.pub_and_start_timer()
         
@@ -47,7 +48,7 @@ class TimerNode(Node):
         
     def pub_and_start_timer(self):
         rand_num = random.randint(1, 10)
-        self.get_logger().info('Publishing: ',rand_num)
+        self.get_logger().info(f'Publishing: {rand_num}')
         self.publisher.publish(rand_num)
         self.starting_time = time.time() * 1_000
         

@@ -2,11 +2,10 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Int64
 from std_msgs.msg import Int64MultiArray
-import math
 
 class PrimeFactorizer(Node):
     def __init__(self):
-        super.__init__('prime_factorizer')
+        super().__init__('prime_factorizer')
         self.factors = []
         self.publisher = self.create_publisher(
             msg_type=Int64MultiArray,

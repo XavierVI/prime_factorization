@@ -4,5 +4,4 @@ This is a small project built to become more familiar with fundamental ROS conce
 # How to use
 After cloning the repo, run the following commands:
 - `./build.bash`
-- `ros2 run prime_calculation_timer prime_factorizer_node`
-- `ros2 run prime_calculation_timer timer_node` (in a seperate terminal)
+- `ros2 launch prime_calculation_timer prime_calculation_timer_launch.py`

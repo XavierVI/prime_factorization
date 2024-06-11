@@ -9,7 +9,7 @@ import sys
 class TimerNode(Node):
     
     def __init__(self):
-        super().__init__('timer_node')
+        super().__init__('timer')
         self.times = []
         self.maxInt = 10_000_000_000
         self.factored_nums = 0
@@ -44,8 +44,9 @@ class TimerNode(Node):
         if(len(self.times) == 100):
             mean = sum(self.times) / len(self.times)
             self.get_logger().info(f'========== Avg. time: {mean} ms ==========')
-            self.times = [] # clear array
-        self.pub_and_start_timer()
+            #self.times = [] # clear array
+        else:
+            self.pub_and_start_timer()
         
         
         

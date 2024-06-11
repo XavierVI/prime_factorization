@@ -1,0 +1,4 @@
+timer_node:
+  ros__parameters:
+    max_int_value: 999999999999 # 999_999_999_999
+    last_iteration: 100

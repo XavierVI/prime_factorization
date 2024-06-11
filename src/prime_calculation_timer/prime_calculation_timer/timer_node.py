@@ -10,8 +10,16 @@ class TimerNode(Node):
     
     def __init__(self):
         super().__init__('timer_node')
-        self.max_int_size = 999_999_999_999
-        self.last_iteration = 100
+        # self.max_int_value = 999_999_999_999
+        # self.last_iteration = 100
+
+        self.declare_parameters(
+            namespace='',
+            parameters=[
+                ('max_int_value', 999_999_999_999),
+                ('last_iteration', 100)
+            ]
+        )
 
         self.times = []
         self.factored_nums = 0
@@ -45,7 +53,8 @@ class TimerNode(Node):
         # if 100 numbers have been factored, log the mean of
         # the time taken
         self.get_logger().info(f'Current iteration: {len(self.times)}')
-        if(len(self.times) == self.last_iteration):
+        last_iteration = self.get_parameter('last_iteration').value
+        if(len(self.times) == last_iteration):
             mean = sum(self.times) / len(self.times)
             self.get_logger().info(f'\n\n\n========== Avg. time: {mean} ms ==========\n\n')
             self.times = [] # clear array
@@ -56,7 +65,8 @@ class TimerNode(Node):
         
         
     def pub_and_start_timer(self):
-        rand_num = random.randint(2, self.max_int_size)
+        max_int_value = self.get_parameter('max_int_value').value
+        rand_num = random.randint(2, max_int_value)
         int64 = Int64()
         int64.data = rand_num
         self.get_logger().info(f'Publishing: {rand_num}')

@@ -5,7 +5,7 @@ from std_msgs.msg import Int64MultiArray
 
 class PrimeFactorizer(Node):
     def __init__(self):
-        super().__init__('prime_factorizer')
+        super().__init__('prime_factorizer_node')
         self.factors = []
         self.publisher = self.create_publisher(
             msg_type=Int64MultiArray,
@@ -21,13 +21,13 @@ class PrimeFactorizer(Node):
         
     def calculate_prime_factors(self, msg):
         num = msg.data
-        self.get_logger().info(f'Received {num}')
+        # self.get_logger().info(f'Received {num}')
         # perform prime factorization
         factors = self.trial_division(num)
         self.pub_prime_factors(factors)
         
     def pub_prime_factors(self, factors):
-        self.get_logger().info(f'Publishing prime factors {factors}')
+        # self.get_logger().info(f'Publishing prime factors {factors}')
         int64array = Int64MultiArray()
         int64array.data = factors
         self.publisher.publish(int64array)

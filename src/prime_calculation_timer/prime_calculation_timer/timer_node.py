@@ -9,21 +9,28 @@ import sys
 class TimerNode(Node):
     
     def __init__(self):
-        super().__init__('timer')
+        super().__init__('timer_node')
         self.times = []
-        self.maxInt = 10_000_000_000
         self.factored_nums = 0
         self.starting_time = 0.0
+        
+        # creating parameters
+        # self.declare_parameter('max_int_size',10_000_000)
+        # self.declare_parameter('stopping_point',100)
+        
+        self.max_int_size = 1_000_000
+        self.stopping_point = 100
+        
         self.publisher = self.create_publisher(
             msg_type=Int64,
             topic='number_to_factorize',
-            qos_profile=1
+            qos_profile=10
         )
         self.subscription = self.create_subscription(
             msg_type=Int64MultiArray,
             topic='factorization_result',
             callback=self.sub_callback,
-            qos_profile=1
+            qos_profile=10
         )
         
         self.pub_and_start_timer()
@@ -41,17 +48,18 @@ class TimerNode(Node):
         
         # if 100 numbers have been factored, log the mean of
         # the time taken
-        if(len(self.times) == 100):
+        if(len(self.times) == self.stopping_point):
             mean = sum(self.times) / len(self.times)
-            self.get_logger().info(f'========== Avg. time: {mean} ms ==========')
-            #self.times = [] # clear array
-        else:
+            self.get_logger().info(f'\n\n\n========== Avg. time: {mean} ms ==========\n\n')
+            self.times = [] # clear array
+            
+        elif len(self.times) < self.stopping_point:
             self.pub_and_start_timer()
         
         
         
     def pub_and_start_timer(self):
-        rand_num = random.randint(1, self.maxInt)
+        rand_num = random.randint(2, self.max_int_size)
         int64 = Int64()
         int64.data = rand_num
         self.get_logger().info(f'Publishing: {rand_num}')

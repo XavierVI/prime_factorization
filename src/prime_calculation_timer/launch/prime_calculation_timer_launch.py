@@ -1,6 +1,6 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
-
+import os
 
 def generate_launch_description():
     return LaunchDescription([
@@ -20,6 +20,8 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             parameters=[
+                # {'max_int_size': 10},
+                # {'stopping_point': 1}
             ]
         )
     ])
